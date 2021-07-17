@@ -1,13 +1,11 @@
   
-import { searchView,search, makeList } from "./foodData.js";
+import { search, makeData, } from "./foodData.js";
 
 
 
-
-`${makeList()}`
 const formDOM = document.getElementById("searchSubmit");
+`${makeData()}`
 searchBar.addEventListener('keyup', (e) => search(e));
-
 
 
 
@@ -17,9 +15,12 @@ searchBar.addEventListener('keyup', (e) => search(e));
     .catch((err) => console.log("error error"))
     .then(userData => {
       document.querySelector("#name").innerHTML = "Merhaba, " + userData.name + "<br>" +" Hoşgeldiniz";
-    })
+    });
     
 
 
-
-
+/* const load =  document.querySelector("#mainPage")
+   load.innerHTML('<div id="loading"><br><br>Sayfa Yükleniyor...</div>'); 
+load.onload=function(){ 
+document.getElementById("loading").style.display="none"; 
+} */

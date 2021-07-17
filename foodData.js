@@ -1,54 +1,70 @@
 
-const makeElement = (foodData) => {
-    foodData.map(item => {
-      let newList = document.querySelector("#foodList");
-      var newFood = document.createElement("li");
-      // var like = document.createElement("button");
-      newFood.innerHTML = item.title;
-      newList.appendChild(newFood);
-      // like.innerText= `👍`;
-     
-     // newList.appendChild(like);
-      
-      //console.log(newList);
-    });
-  }
+//DOM elements
+
+let foodDiv = document.querySelector("#food");
+let foodData = [];
 
 
-
-
- function makeList() {
-   fetch("https://jsonplaceholder.typicode.com/todos")
+function makeData() {
+  fetch("https://jsonplaceholder.typicode.com/todos")
     .then((res) => res.json())
-    .catch((err)=>console.log(err))
-    .then((foodData) => makeElement(foodData));
+    .catch((err) => console.log(err))
+    .then((res) => {
+      foodData = [...res];
+      createDiv(foodData);
+    });
+  
 }
 
- 
-function search(){
+//div oluşturur.
+function createDiv(food) {
+  foodDiv.innerHTML = " ";
+  foodData.map((item) => {
+    let cardDiv = document.createElement("div");
+    let cardTitle = document.createElement("p");
+    let likeBtn = document.createElement("span");
+    let like = document.createElement("i");
+    likeBtn.className = "icon-click-area";
+    likeBtn.setAttribute("id", "like");
+    like.className = "far fa-heart icon-color";
+    cardDiv.className = "cards";
+    cardTitle.innerText = item.title;
+    cardTitle.className = "card-title";
+    cardDiv.appendChild(cardTitle);
+    likeBtn.appendChild(like);
+    cardDiv.appendChild(likeBtn);
+    foodDiv.appendChild(cardDiv);
+  });
+}
+
+ function search() {
+  let searchValue = document.getElementById("searchBar").value;
+  console.log(searchValue);
+  event.preventDefault();
+  foodData.filter((item) => {
+    if (item.title.includes(searchValue)) {
+      createDiv(searchValue);
+    }
+  });
+}  
+
+
+/* function search(){
   event.preventDefault();
   let searchValue = document.getElementById("searchBar").value;
   console.log(searchValue)
   var filter = searchValue.toUpperCase();
-  var ul = document.getElementById("foodList");
-  var a = document.createElement("a");
-  var li = ul.getElementsByTagName("li");
- 
-    for (var i = 0; i < li.length; i++) {
-      
-       var a = li[i].getElementsByTagName("a")[0];
-        if (li[i].innerText.toUpperCase().indexOf(filter) > -1) {
-         li[i].style.display = "jhdf"
-         console.log(li[0])
+  var p = document.createElement("p");
+    for (var i = 0; i < foodData.length; i++) {
+        var p = foodData[i].querySelector("#p")[0];
+        if (foodData[i].innerText.toUpperCase().indexOf(filter) > -1) {
+         foodData[i].style.display = "jhdf"
+         console.log(foodData[0])
         } else {
-            li[i].style.display = "none";
+            foodData[i].style.display = "none";
         }
     }
-} 
- 
+}  */
+  
 
-
-export { search, makeList };
-
-
-
+export { search, makeData, createDiv };
