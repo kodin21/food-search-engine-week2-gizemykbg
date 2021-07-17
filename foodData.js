@@ -17,7 +17,7 @@ function makeData() {
 }
 
 //div oluşturur.
-function createDiv(food) {
+function createDiv() {
   foodDiv.innerHTML = " ";
   foodData.map((item) => {
     let cardDiv = document.createElement("div");
